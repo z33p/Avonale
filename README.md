@@ -2,15 +2,15 @@
 
 ## 1. GitHubRepos
 
-* [x] Deve existir uma seção "Meus repositórios", onde é listado todos os repositórios do candidato (você, que está lendo isso agora).
+- [x] Deve existir uma seção "Meus repositórios", onde é listado todos os repositórios do candidato (você, que está lendo isso agora).
 
-* [x] Deve existir uma seção onde o usuário pode procurar por repositórios do github utilizando como filtro nome ou parte do nome do repositório.
+- [x] Deve existir uma seção onde o usuário pode procurar por repositórios do github utilizando como filtro nome ou parte do nome do repositório.
 
-* [ ] Deve existir uma seção listando repositórios favoritos (não são os seus favoritos e sim os marcados como favoritos por quem usar seu sistema)
+- [x] Deve existir uma seção listando repositórios favoritos (não são os seus favoritos e sim os marcados como favoritos por quem usar seu sistema)
 
-* [ ] Ao clicar no nome de um repositório em qualquer lugar, devemos ir para uma tela de detalhes com nome, descrição, linguagem, última data de atualização e o dono do repositório. Abaixo disso, liste todos os contribuidores do projeto.
+- [ ] Ao clicar no nome de um repositório em qualquer lugar, devemos ir para uma tela de detalhes com nome, descrição, linguagem, última data de atualização e o dono do repositório. Abaixo disso, liste todos os contribuidores do projeto.
 
-* [ ] Na tela de detalhes do repositório, deve ser possível marcá-lo como repositório favorito (ver 5.1).
+- [ ] Na tela de detalhes do repositório, deve ser possível marcá-lo como repositório favorito (ver 5.1).
 
 > O que significa marcar como favorito?
 >
@@ -18,6 +18,6 @@
 
 ## 2. ConsoleScripts
 
-* [ ] Recursivo que imprima a média dos elementos de uma lista de inteiros e o número de elementos maiores do que a média.
+- [ ] Recursivo que imprima a média dos elementos de uma lista de inteiros e o número de elementos maiores do que a média.
 
-* [ ] Recursivo que retorne uma lista de forma invertida.
+- [ ] Recursivo que retorne uma lista de forma invertida.

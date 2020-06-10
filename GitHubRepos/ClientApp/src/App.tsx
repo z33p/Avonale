@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router';
 import Layout from './components/Layout';
 import Home from './components/Home';
-import Counter from './components/Counter';
+import FavRepos from './components/FavRepos';
 import MyRepos from './components/MyRepos/MyRepos';
 
 import './custom.css'
@@ -12,7 +12,7 @@ const App: React.FC = () => {
   return (
     <Layout>
       <Route exact path={appRoutes.home} component={Home} />
-      <Route path={appRoutes.counter} component={Counter} />
+      <Route path={appRoutes.counter} component={FavRepos} />
       <Route path={appRoutes.myRepos.index} component={MyRepos} />
     </Layout>
   );

@@ -19,10 +19,10 @@ const NavMenu: React.FC = () => {
                 <NavLink tag={Link} className="text-dark" to={appRoutes.home}>Home</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to={appRoutes.counter}>Counter</NavLink>
+                <NavLink tag={Link} className="text-dark" to={appRoutes.myRepos.index}>Meus repositórios</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to={appRoutes.myRepos.index}>Meus repositórios</NavLink>
+                <NavLink tag={Link} className="text-dark" to={appRoutes.counter}>Fav Repos</NavLink>
               </NavItem>
             </ul>
           </Collapse>
