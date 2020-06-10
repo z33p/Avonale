@@ -3,7 +3,7 @@ import { Route } from 'react-router';
 import Layout from './components/Layout';
 import Home from './components/Home';
 import Counter from './components/Counter';
-import MyRepos from './components/MyRepos';
+import MyRepos from './components/MyRepos/MyRepos';
 
 import './custom.css'
 import { appRoutes } from './contracts/routes';

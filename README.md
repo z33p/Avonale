@@ -4,7 +4,7 @@
 
 * [x] Deve existir uma seção "Meus repositórios", onde é listado todos os repositórios do candidato (você, que está lendo isso agora).
 
-* [ ] Deve existir uma seção onde o usuário pode procurar por repositórios do github utilizando como filtro nome ou parte do nome do repositório.
+* [x] Deve existir uma seção onde o usuário pode procurar por repositórios do github utilizando como filtro nome ou parte do nome do repositório.
 
 * [ ] Deve existir uma seção listando repositórios favoritos (não são os seus favoritos e sim os marcados como favoritos por quem usar seu sistema)
 
