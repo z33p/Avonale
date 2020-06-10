@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Contributor } from '../../../../contracts/responses';
 import ContributorView from './ContributorView';
 import axios from 'axios';
+import { Spinner } from 'reactstrap';
 
 interface Props {
   contributorsUrl: string
@@ -23,8 +24,8 @@ const Contributors: React.FC<Props> = ({ contributorsUrl }) => {
 
   if (isLoading)
     return (
-      <div className="">
-        <h2>Loading...</h2>
+      <div className="py-5 d-flex justify-content-around">
+        <Spinner type="grow" color="info" />
       </div>
     )
 

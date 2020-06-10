@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { MyReposContext } from '../MyReposRoutes';
 import axios from 'axios';
 import Contributors from './Contributors/Contributors';
+import { Spinner } from 'reactstrap';
 
 interface Params {
   user: string;
@@ -32,7 +33,11 @@ const ShowRepo: React.FC<RouteComponentProps<Params>> = ({ match }) => {
 
   if (repo === undefined) {
     if (isLoading)
-      return <div className="">Loading...</div>
+      return (
+        <div className="py-5 d-flex justify-content-around">
+          <Spinner type="grow" color="info" />
+        </div>
+      );
 
     return (
       <div className="">
