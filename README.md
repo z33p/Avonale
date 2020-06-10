@@ -2,7 +2,7 @@
 
 ## 1. GitHubRepos
 
-* [ ] Deve existir uma seção "Meus repositórios", onde é listado todos os repositórios do candidato (você, que está lendo isso agora).
+* [x] Deve existir uma seção "Meus repositórios", onde é listado todos os repositórios do candidato (você, que está lendo isso agora).
 
 * [ ] Deve existir uma seção onde o usuário pode procurar por repositórios do github utilizando como filtro nome ou parte do nome do repositório.
 

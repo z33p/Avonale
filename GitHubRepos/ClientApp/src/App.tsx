@@ -3,16 +3,17 @@ import { Route } from 'react-router';
 import Layout from './components/Layout';
 import Home from './components/Home';
 import Counter from './components/Counter';
+import MyRepos from './components/MyRepos';
 
 import './custom.css'
-import FetchData from './components/FetchData';
+import { appRoutes } from './contracts/routes';
 
 const App: React.FC = () => {
   return (
     <Layout>
-      <Route exact path="/" component={Home} />
-      <Route path="/counter" component={Counter} />
-      <Route path="/fetch-data" component={FetchData} />
+      <Route exact path={appRoutes.home} component={Home} />
+      <Route path={appRoutes.counter} component={Counter} />
+      <Route path={appRoutes.myRepos.index} component={MyRepos} />
     </Layout>
   );
 }
