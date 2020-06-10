@@ -22,7 +22,7 @@ const NavMenu: React.FC = () => {
                 <NavLink tag={Link} className="text-dark" to={appRoutes.myRepos.index}>Meus repositórios</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to={appRoutes.counter}>Fav Repos</NavLink>
+                <NavLink tag={Link} className="text-dark" to={appRoutes.favRepos}>Fav Repos</NavLink>
               </NavItem>
             </ul>
           </Collapse>

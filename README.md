@@ -8,7 +8,7 @@
 
 - [x] Deve existir uma seção listando repositórios favoritos (não são os seus favoritos e sim os marcados como favoritos por quem usar seu sistema)
 
-- [ ] Ao clicar no nome de um repositório em qualquer lugar, devemos ir para uma tela de detalhes com nome, descrição, linguagem, última data de atualização e o dono do repositório. Abaixo disso, liste todos os contribuidores do projeto.
+- [x] Ao clicar no nome de um repositório em qualquer lugar, devemos ir para uma tela de detalhes com nome, descrição, linguagem, última data de atualização e o dono do repositório. Abaixo disso, liste todos os contribuidores do projeto.
 
 - [ ] Na tela de detalhes do repositório, deve ser possível marcá-lo como repositório favorito (ver 5.1).
 

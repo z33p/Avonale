@@ -3,17 +3,17 @@ import { Route } from 'react-router';
 import Layout from './components/Layout';
 import Home from './components/Home';
 import FavRepos from './components/FavRepos';
-import MyRepos from './components/MyRepos/MyRepos';
 
 import './custom.css'
 import { appRoutes } from './contracts/routes';
+import MyReposRoutes from './components/MyReposRoutes/MyReposRoutes';
 
 const App: React.FC = () => {
   return (
     <Layout>
       <Route exact path={appRoutes.home} component={Home} />
-      <Route path={appRoutes.counter} component={FavRepos} />
-      <Route path={appRoutes.myRepos.index} component={MyRepos} />
+      <Route path={appRoutes.favRepos} component={FavRepos} />
+      <Route path={appRoutes.myRepos.index} component={MyReposRoutes} />
     </Layout>
   );
 }
