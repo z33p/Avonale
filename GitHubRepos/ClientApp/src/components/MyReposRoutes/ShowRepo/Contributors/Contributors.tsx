@@ -26,14 +26,14 @@ const Contributors: React.FC<Props> = ({ user, repo }) => {
 
   if (isLoading)
     return (
-      <div className="py-5 d-flex justify-content-around">
+      <div className="py-5 d-flex justify-content-around align-items-center">
         <Spinner type="grow" color="info" />
       </div>
     );
 
   return (
-    <div className="py-2 container">
-      <div className="row justify-content-center">
+    <div className="py-2">
+      <div className="row align-items-center">
         {collaborators.map((contributor) => (
           <ContributorView key={contributor.id} contributor={contributor} />
         ))}

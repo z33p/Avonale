@@ -1,6 +1,6 @@
 import React from "react";
 import { Repository } from "../../contracts/responses";
-import { NavLink, Spinner } from "reactstrap";
+import { NavLink, Spinner, Table } from "reactstrap";
 import { Link } from "react-router-dom";
 import { appRoutes } from "../../contracts/routes";
 
@@ -21,7 +21,7 @@ const ReposTable: React.FC<Props> = ({ repos, isLoading }) => {
   if (repos.length === 0) return null;
 
   return (
-    <table className="table table-striped">
+    <Table responsive hover className="py-2">
       <thead>
         <tr>
           <td>Name</td>
@@ -42,7 +42,7 @@ const ReposTable: React.FC<Props> = ({ repos, isLoading }) => {
           </tr>
         ))}
       </tbody>
-    </table>
+    </Table>
   );
 };
 

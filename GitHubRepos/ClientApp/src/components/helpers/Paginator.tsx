@@ -14,11 +14,11 @@ const Paginator: React.FC<Props> = ({
   total_count,
 }) => {
   const boxPageButton = (key: number, value: any) => {
-    let selected = value === currentPage ? "border-2 border-info" : "";
+    let selected = value === currentPage ? "bg-info" : "bg-primary";
     return (
       <button
         key={key}
-        className={`mx-1 btn btn-primary rounded ${selected}`}
+        className={`mx-1 btn ${selected} rounded `}
         onClick={value === "..." ? () => null : () => setCurrentPage(value)}
       >
         {value}
@@ -65,7 +65,7 @@ const Paginator: React.FC<Props> = ({
     } else return buttons;
   };
 
-  return <div className="py-2">{loadButtons()}</div>;
+  return <div className="py-3 float-right">{loadButtons()}</div>;
 };
 
 export default Paginator;

@@ -3,7 +3,7 @@ import { RouteComponentProps } from "react-router-dom";
 import { MyReposContext } from "../MyReposRoutes";
 import axios from "axios";
 import Contributors from "./Contributors/Contributors";
-import { Spinner } from "reactstrap";
+import { Spinner, Table } from "reactstrap";
 import StarButton from "./StarButton";
 import { apiGitHub } from "../../../contracts/routes";
 
@@ -52,33 +52,33 @@ const ShowRepo: React.FC<RouteComponentProps<Params>> = ({ match }) => {
 
   return (
     <div className="">
-      <h2>
+      <h2 className="py-2">
         <span className="pr-2">
           <StarButton repo={repo} />
         </span>
         <span>{repo.name}</span>
       </h2>
 
-      <table className="table table-striped" aria-labelledby="tabelLabel">
+      <Table dark responsive bordered className="py-2">
         <thead>
           <tr>
             <th>Nome</th>
             <th>Descrição</th>
             <th>Linguagem</th>
-            <th>Atualizado pela última vez</th>
-            <th>Dono do repositório</th>
+            <th>Última modificação</th>
+            <th>Dono</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>{repo.name}</td>
-            <td>{repo.description}</td>
-            <td>{repo.language}</td>
-            <td>{repo.updated_at}</td>
+            <td>{repo.description ?? "-"}</td>
+            <td>{repo.language ?? "-"}</td>
+            <td>{new Date(repo.updated_at).toLocaleString()}</td>
             <td>{repo.owner.login}</td>
           </tr>
         </tbody>
-      </table>
+      </Table>
       <Contributors user={match.params.user} repo={match.params.repo} />
     </div>
   );

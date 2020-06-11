@@ -41,7 +41,6 @@ const MyRepos: React.FC<RouteComponentProps<Params>> = ({ match }) => {
   return (
     <div>
       <h1 id="tabelLabel">Meus repositórios</h1>
-      <p>This component demonstrates fetching data from the server.</p>
       <Paginator
         per_page={per_page}
         currentPage={currentPage}

@@ -1,22 +1,35 @@
-import React from 'react';
-import { Contributor } from '../../../../contracts/responses';
+import React from "react";
+import { Contributor } from "../../../../contracts/responses";
+import { CardImg, Card, CardTitle, CardBody } from "reactstrap";
 
 interface Props {
-  contributor: Contributor
+  contributor: Contributor;
 }
 
 const image = {
-  width: 300 + "px",
-  height: 300 + "px"
-}
+  width: 270 + "px",
+  height: 270 + "px",
+};
 
 const ContributorView: React.FC<Props> = ({ contributor }) => {
   return (
-    <figure className="p-2 col-md-12 col-lg-4">
-      <img src={contributor.avatar_url} alt="Avatar" style={image} />
-      <figcaption>{contributor.login}</figcaption>
-    </figure>
+    <div className="p-2 col-md-12 col-lg-4 d-flex justify-content-center">
+      <a href={contributor.html_url} about="_blank" rel="noopener noreferrer">
+        <Card style={{ maxWidth: image.width }}>
+          <CardImg
+            top
+            width={image.width}
+            height={image.height}
+            src={contributor.avatar_url}
+            alt="Avatar"
+          />
+          <CardBody>
+            <CardTitle>{contributor.login}</CardTitle>
+          </CardBody>
+        </Card>
+      </a>
+    </div>
   );
-}
+};
 
 export default ContributorView;
