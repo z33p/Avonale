@@ -20,30 +20,36 @@ namespace GitHubRepos.Controllers
     [HttpGet]
     public List<FavRepo> Index()
     {
-      return _context.FavRepo.Where(f => f.isToggled).ToList();
+      return _context.FavRepo.ToList();
     }
 
-    [HttpPost("[action]/{repoId}")]
-    public async Task<OkObjectResult> ToggleAsync(int repoId)
+    [HttpGet("{repoId}")]
+    public async Task<ActionResult> ShowAsync(int repoId)
     {
-      var fav = _context.FavRepo.Where(f => f.RepoId == repoId).FirstOrDefault<FavRepo>();
+      var favRepo = await _context.FavRepo.FindAsync(repoId);
 
-      if (fav == null)
-        await _context.FavRepo.AddAsync(new FavRepo
-        {
-          RepoId = repoId,
-          isToggled = false
-        });
+      if (favRepo != null) return Ok(favRepo);
 
-      else
+      return NotFound();
+    }
+
+    [HttpPost("[action]")]
+    public async Task<ActionResult> ToggleAsync([FromBody] FavRepo favRepo)
+    {
+      var fav = await _context.FavRepo.FindAsync(favRepo.RepoId);
+
+      if (fav != null)
       {
-        fav.isToggled = !fav.isToggled;
-        _context.Update(fav);
+        _context.FavRepo.Remove(fav);
+
+        await _context.SaveChangesAsync();
+        return NoContent();
       }
 
-      await _context.SaveChangesAsync();
+      await _context.FavRepo.AddAsync(favRepo);
 
-      return Ok(fav);
+      await _context.SaveChangesAsync();
+      return Ok(favRepo);
     }
   }
 }

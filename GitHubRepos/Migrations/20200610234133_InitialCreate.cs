@@ -10,14 +10,14 @@ namespace GitHubRepos.Migrations
                 name: "FavRepo",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    RepoId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    RepoId = table.Column<int>(nullable: false),
-                    isToggled = table.Column<bool>(nullable: false)
+                    Name = table.Column<string>(nullable: true),
+                    User = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FavRepo", x => x.Id);
+                    table.PrimaryKey("PK_FavRepo", x => x.RepoId);
                 });
         }
 

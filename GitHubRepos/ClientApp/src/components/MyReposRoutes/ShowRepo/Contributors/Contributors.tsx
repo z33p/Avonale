@@ -33,7 +33,7 @@ const Contributors: React.FC<Props> = ({ contributorsUrl }) => {
     <div className="py-2 container">
       <div className="row justify-content-center">
         {contributors.map(contributor => (
-          <ContributorView contributor={contributor} />
+          <ContributorView key={contributor.id} contributor={contributor} />
         ))}
       </div>
     </div>);

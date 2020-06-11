@@ -16,7 +16,7 @@ export interface Repository {
 }
 
 export interface FavRepo {
-  id: number;
   repoId: number;
-  isToggled: boolean;
+  name: string;
+  user: string;
 }

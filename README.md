@@ -10,7 +10,7 @@
 
 - [x] Ao clicar no nome de um repositório em qualquer lugar, devemos ir para uma tela de detalhes com nome, descrição, linguagem, última data de atualização e o dono do repositório. Abaixo disso, liste todos os contribuidores do projeto.
 
-- [ ] Na tela de detalhes do repositório, deve ser possível marcá-lo como repositório favorito (ver 5.1).
+- [x] Na tela de detalhes do repositório, deve ser possível marcá-lo como repositório favorito (ver 5.1).
 
 > O que significa marcar como favorito?
 >

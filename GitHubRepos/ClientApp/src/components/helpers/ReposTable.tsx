@@ -29,13 +29,15 @@ const ReposTable: React.FC<Props> = ({ repos, isLoading }) => {
       <tbody>
         {repos.map(repo => (
           <tr key={repo.id}>
-            <NavLink
-              tag={Link}
-              className="text-dark"
-              to={appRoutes.myRepos.show(repo.owner.login, repo.name)}
-            >
-              {repo.name}
-            </NavLink>
+            <td>
+              <NavLink
+                tag={Link}
+                className="text-dark"
+                to={appRoutes.myRepos.show.get(repo.owner.login, repo.name)}
+              >
+                {repo.name}
+              </NavLink>
+            </td>
           </tr>
         ))}
       </tbody>

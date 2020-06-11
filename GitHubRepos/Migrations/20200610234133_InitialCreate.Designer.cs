@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GitHubRepos.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200610151808_InitialCreate")]
+    [Migration("20200610234133_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,17 +19,17 @@ namespace GitHubRepos.Migrations
 
             modelBuilder.Entity("GitHubRepos.Models.FavRepo", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("RepoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("RepoId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
 
-                    b.Property<bool>("isToggled")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("User")
+                        .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.HasKey("RepoId");
 
                     b.ToTable("FavRepo");
                 });

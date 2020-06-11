@@ -13,7 +13,7 @@ const MyReposRoutes: React.FC = () => {
     <Switch>
       <MyReposContext.Provider value={myRepos}>
         <Route exact path={appRoutes.myRepos.index} component={MyRepos} />
-        <Route exact path={appRoutes.myRepos.showTemplate} component={ShowRepo} />
+        <Route exact path={appRoutes.myRepos.show.template} component={ShowRepo} />
       </MyReposContext.Provider>
     </Switch>
   );

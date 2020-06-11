@@ -3,6 +3,7 @@ import { Repository } from '../contracts/responses';
 import axios from 'axios';
 import ReposTable from './helpers/ReposTable';
 import { Input } from 'reactstrap';
+import { apiGitHub } from '../contracts/routes';
 
 const SearchRepos: React.FC = () => {
   const [repoName, setRepoName] = useState('');
@@ -16,7 +17,7 @@ const SearchRepos: React.FC = () => {
   const searchRepos = () => {
     setIsLoading(true);
     axios
-      .get(`https://api.github.com/search/repositories?q=${repoName}`)
+      .get(apiGitHub.searchByName(repoName))
       .then(res => {
         setRepos(res.data.items);
         setIsLoading(false)

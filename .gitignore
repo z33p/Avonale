@@ -1,3 +1,4 @@
 .vscode
 GitHubRepos/ClientApp/src/repos.json
 GitHubRepos/ClientApp/src/contributors.json
+GitHubRepos/Database/sqlite.db

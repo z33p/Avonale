@@ -17,17 +17,17 @@ namespace GitHubRepos.Migrations
 
             modelBuilder.Entity("GitHubRepos.Models.FavRepo", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("RepoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("RepoId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
 
-                    b.Property<bool>("isToggled")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("User")
+                        .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.HasKey("RepoId");
 
                     b.ToTable("FavRepo");
                 });

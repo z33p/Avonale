@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { MyReposContext } from '../MyReposRoutes';
 import ReposTable from '../../helpers/ReposTable';
+import { apiGitHub } from '../../../contracts/routes';
 
 
 const MyRepos: React.FC = () => {
@@ -12,7 +13,7 @@ const MyRepos: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get(`https://api.github.com/users/z33p/repos`)
+      .get(apiGitHub.userRepos('z33p'))
       .then(res => {
         setRepos(res.data);
         setIsLoading(false);

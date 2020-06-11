@@ -1,28 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { FavRepo } from '../contracts/responses';
 import axios from 'axios';
+import { apiRoutes, apiGitHub } from '../contracts/routes';
+import ReposTable from './helpers/ReposTable';
+import { Repository, FavRepo } from '../contracts/responses';
 
 const FavRepos: React.FC = () => {
-
-  const [favRepos, setFapRepos] = useState<FavRepo[]>([]);
+  const [repos, setRepos] = useState<Repository[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     axios
-      .get("/api/favrepo")
-      .then(res => setFapRepos(res.data))
-      .catch(err => console.log(err));
+      .get<FavRepo[]>(apiRoutes.index)
+      .then(({ data }) => {
+        axios
+          .all(data.map(favRepo => axios.get(apiGitHub.repoByUser(favRepo.user, favRepo.name))))
+          .then(axios.spread((...responses) => {
+            setRepos(responses.map(res => res.data));
+            setIsLoading(false);
+          }))
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }, [])
 
   return (
     <div>
-      <ul>
-        {favRepos.map(favRepo => (
-          <li key={favRepo.id}>
-            {favRepo.repoId}
-          </li>
-        ))}
-      </ul>
-    </div>);
+      <ReposTable repos={repos} isLoading={isLoading} />
+    </div>
+  )
 }
 
 export default FavRepos;

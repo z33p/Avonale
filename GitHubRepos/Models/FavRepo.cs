@@ -1,9 +1,13 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace GitHubRepos.Models
 {
   public class FavRepo
   {
-    public int Id { get; set; }
+    [Key]
     public int RepoId { get; set; }
-    public bool isToggled { get; set; }
+    public String Name { get; set; }
+    public String User { get; set; }
   }
 }

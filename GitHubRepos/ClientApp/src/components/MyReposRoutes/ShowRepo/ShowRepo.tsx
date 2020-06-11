@@ -3,7 +3,9 @@ import { RouteComponentProps } from 'react-router-dom';
 import { MyReposContext } from '../MyReposRoutes';
 import axios from 'axios';
 import Contributors from './Contributors/Contributors';
-import { Spinner } from 'reactstrap';
+import { Spinner, } from 'reactstrap';
+import StarButton from './StarButton';
+import { apiGitHub } from '../../../contracts/routes';
 
 interface Params {
   user: string;
@@ -20,7 +22,7 @@ const ShowRepo: React.FC<RouteComponentProps<Params>> = ({ match }) => {
   useEffect(() => {
     if (isLoading)
       axios
-        .get(`https://api.github.com/repos/${match.params.user}/${match.params.repo}`)
+        .get(apiGitHub.repoByUser(match.params.user, match.params.repo))
         .then(res => {
           setRepo(res.data);
           setIsLoading(false);
@@ -48,16 +50,22 @@ const ShowRepo: React.FC<RouteComponentProps<Params>> = ({ match }) => {
 
   return (
     <div className="">
-      <h2>{match.params.repo}</h2>
+
+      <h2>
+        <span className="pr-2">
+          <StarButton repo={repo} />
+        </span>
+        <span>{repo.name}</span>
+      </h2>
 
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
           <tr>
-            <th>nome</th>
-            <th> descrição</th>
-            <th> linguagem</th>
-            <th> última data de atualização</th>
-            <th> dono do repositório</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Linguagem</th>
+            <th>Atualizado pela última vez</th>
+            <th>Dono do repositório</th>
           </tr>
         </thead>
         <tbody>
@@ -66,7 +74,7 @@ const ShowRepo: React.FC<RouteComponentProps<Params>> = ({ match }) => {
               {repo.name}
             </td>
             <td>
-              {repo.description === null ? "" : repo.description}
+              {repo.description}
             </td>
             <td>
               {repo.language}
