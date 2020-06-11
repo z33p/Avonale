@@ -3,23 +3,24 @@ import React from "react";
 const Home: React.FC = () => {
   return (
     <div className="p-2">
-      <h1>Avonale Teste</h1>
+      <h1>Avonale Teste C#</h1>
       <p>Estrutura do projeto:</p>
       <ul>
         <li>
-          <a href="https://get.asp.net/">ASP.NET Core</a> and{" "}
+          <a href="https://get.asp.net/">ASP.NET Core </a>
+          <span>e </span>
           <a href="https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx">
             C#
           </a>
-          for cross-platform server-side code
+          <span> server-side</span>
         </li>
         <li>
-          <a href="https://facebook.github.io/react/">React</a> for client-side
-          code
+          <a href="https://facebook.github.io/react/">React </a>
+          <span>client-side</span>
         </li>
         <li>
-          <a href="http://getbootstrap.com/">Bootstrap</a> for layout and
-          styling
+          <a href="http://getbootstrap.com/">Bootstrap </a>
+          <span>layout e styling</span>
         </li>
       </ul>
       <p>Links para contato ou outros projetos</p>
