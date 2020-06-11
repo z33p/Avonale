@@ -1,24 +1,96 @@
-import React from 'react';
+import React from "react";
 
 const Home: React.FC = () => {
   return (
-    <div>
-      <h1>Hello, world!</h1>
-      <p>Welcome to your new single-page application, built with:</p>
+    <div className="p-2">
+      <h1>Avonale Teste</h1>
+      <p>Estrutura do projeto:</p>
       <ul>
-        <li><a href='https://get.asp.net/'>ASP.NET Core</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>
-        <li><a href='https://facebook.github.io/react/'>React</a> for client-side code</li>
-        <li><a href='http://getbootstrap.com/'>Bootstrap</a> for layout and styling</li>
+        <li>
+          <a href="https://get.asp.net/">ASP.NET Core</a> and{" "}
+          <a href="https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx">
+            C#
+          </a>
+          for cross-platform server-side code
+        </li>
+        <li>
+          <a href="https://facebook.github.io/react/">React</a> for client-side
+          code
+        </li>
+        <li>
+          <a href="http://getbootstrap.com/">Bootstrap</a> for layout and
+          styling
+        </li>
       </ul>
-      <p>To help you get started, we have also set up:</p>
+      <p>Links para contato ou outros projetos</p>
       <ul>
-        <li><strong>Client-side navigation</strong>. For example, click <em>Counter</em> then <em>Back</em> to return here.</li>
-        <li><strong>Development server integration</strong>. In development mode, the development server from <code>create-react-app</code> runs in the background automatically, so your client-side resources are dynamically built on demand and the page refreshes when you modify any file.</li>
-        <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and your <code>dotnet publish</code> configuration produces minified, efficiently bundled JavaScript files.</li>
+        <li>
+          <a
+            className="pr-3"
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.linkedin.com/in/raphael-pimenta-developer/"
+          >
+            LinkedIn
+          </a>
+        </li>
+        <li>
+          <a
+            className=""
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://github.com/z33p/"
+          >
+            GitHub
+          </a>
+        </li>
       </ul>
-      <p>The <code>ClientApp</code> subdirectory is a standard React application based on the <code>create-react-app</code> template. If you open a command prompt in that directory, you can run <code>npm</code> commands such as <code>npm test</code> or <code>npm install</code>.</p>
+
+      <h2>GitHubRepos</h2>
+      <div className="py-1">
+        <input className="mr-2" type="checkbox" readOnly checked={true} />
+        <span>
+          Deve existir uma seção "Meus repositórios", onde é listado todos os
+          repositórios do candidato (você, que está lendo isso agora).
+        </span>
+      </div>
+
+      <div className="py-1">
+        <input className="mr-2" type="checkbox" readOnly checked={true} />
+        <span>
+          Deve existir uma seção onde o usuário pode procurar por repositórios
+          do github utilizando como filtro nome ou parte do nome do repositório.
+        </span>
+      </div>
+
+      <div className="py-1">
+        <input className="mr-2" type="checkbox" readOnly checked={true} />
+        <span>
+          Deve existir uma seção listando repositórios favoritos (não são os
+          seus favoritos e sim os marcados como favoritos por quem usar seu
+          sistema)
+        </span>
+      </div>
+
+      <div className="py-1">
+        <input className="mr-2" type="checkbox" readOnly checked={true} />
+        <span>
+          Ao clicar no nome de um repositório em qualquer lugar, devemos ir para
+          uma tela de detalhes com nome, descrição, linguagem, última data de
+          atualização e o dono do repositório. Abaixo disso, liste todos os
+          contribuidores do projeto.
+        </span>
+      </div>
+
+      <div className="py-1">
+        <input className="mr-2" type="checkbox" readOnly checked={true} />
+        <span>
+          Na tela de detalhes do repositório, deve ser possível marcá-lo como
+          repositório favorito (ver 5.1).
+        </span>
+      </div>
     </div>
   );
-}
+};
 
 export default Home;

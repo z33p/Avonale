@@ -1,32 +1,56 @@
-import React, { useState } from 'react';
-import { Repository } from '../contracts/responses';
-import axios from 'axios';
-import ReposTable from './helpers/ReposTable';
-import { Input } from 'reactstrap';
-import { apiGitHub } from '../contracts/routes';
+import React, { useState, useEffect, useCallback } from "react";
+import { GitHubResponse } from "../contracts/responses";
+import axios from "axios";
+import ReposTable from "./helpers/ReposTable";
+import { Input } from "reactstrap";
+import { apiGitHub, appRoutes } from "../contracts/routes";
+import Paginator from "./helpers/Paginator";
+import { RouteComponentProps, useHistory } from "react-router-dom";
 
-const SearchRepos: React.FC = () => {
-  const [repoName, setRepoName] = useState('');
-  const [repos, setRepos] = useState<Repository[]>([]);
+interface Params {
+  name: string;
+  page: string;
+  per_page: string;
+}
+
+const SearchRepos: React.FC<RouteComponentProps<Params>> = ({ match }) => {
+  const [repoName, setRepoName] = useState(match.params.name ?? "");
+  const [currentPage, setCurrentPage] = useState(
+    parseInt(match.params.page ?? 1)
+  );
   const [isLoading, setIsLoading] = useState(false);
+  const [responseData, setResponseData] = useState<GitHubResponse>({
+    total_count: 0,
+    items: [],
+  });
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRepoName(e.target.value);
-  }
+  const history = useHistory();
 
-  const searchRepos = () => {
+  const per_page = parseInt(match.params.per_page ?? 12);
+  const searchRepos = useCallback(() => {
     setIsLoading(true);
+    history.replace(
+      appRoutes.searchRepos.pagination.set(repoName, currentPage, per_page)
+    );
     axios
-      .get(apiGitHub.searchByName(repoName))
-      .then(res => {
-        setRepos(res.data.items);
-        setIsLoading(false)
+      .get<GitHubResponse>(
+        apiGitHub.searchByName(repoName, currentPage, per_page)
+      )
+      .then((res) => {
+        setResponseData(res.data);
+        setIsLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
-        setIsLoading(false)
-      })
-  }
+        setIsLoading(false);
+      });
+  }, [currentPage, history, per_page, repoName]);
+
+  useEffect(() => {
+    console.log("constructed");
+
+    if (repoName.length > 0) searchRepos();
+  }, [currentPage, repoName.length, searchRepos]);
 
   let typingTimer: any = null;
   return (
@@ -37,7 +61,7 @@ const SearchRepos: React.FC = () => {
         name="search"
         id="search"
         value={repoName}
-        onChange={onChange}
+        onChange={(e) => setRepoName(e.target.value)}
         onKeyDown={() => {
           clearTimeout(typingTimer);
         }}
@@ -45,14 +69,21 @@ const SearchRepos: React.FC = () => {
           clearTimeout(typingTimer);
 
           typingTimer = setTimeout(() => {
-            console.log('debounced');
+            if (repoName.length === 0) return;
+
             searchRepos();
           }, 400);
         }}
       />
-      <ReposTable repos={repos} isLoading={isLoading} />
+      <Paginator
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        per_page={per_page}
+        total_count={responseData.total_count}
+      />
+      <ReposTable repos={responseData.items} isLoading={isLoading} />
     </div>
   );
-}
+};
 
 export default SearchRepos;

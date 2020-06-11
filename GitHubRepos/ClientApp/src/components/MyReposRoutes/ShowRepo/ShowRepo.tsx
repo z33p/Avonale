@@ -1,11 +1,11 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
-import { MyReposContext } from '../MyReposRoutes';
-import axios from 'axios';
-import Contributors from './Contributors/Contributors';
-import { Spinner, } from 'reactstrap';
-import StarButton from './StarButton';
-import { apiGitHub } from '../../../contracts/routes';
+import React, { useContext, useState, useEffect } from "react";
+import { RouteComponentProps } from "react-router-dom";
+import { MyReposContext } from "../MyReposRoutes";
+import axios from "axios";
+import Contributors from "./Contributors/Contributors";
+import { Spinner } from "reactstrap";
+import StarButton from "./StarButton";
+import { apiGitHub } from "../../../contracts/routes";
 
 interface Params {
   user: string;
@@ -13,25 +13,27 @@ interface Params {
 }
 
 const ShowRepo: React.FC<RouteComponentProps<Params>> = ({ match }) => {
-  const repos = useContext(MyReposContext);
+  const { responseData } = useContext(MyReposContext);
 
-  const [isLoading, setIsLoading] = useState(repos.length === 0);
+  const [isLoading, setIsLoading] = useState(responseData.items.length === 0);
 
-  const [repo, setRepo] = useState(repos.find(r => r.name === match.params.repo));
+  const [repo, setRepo] = useState(
+    responseData.items.find((r) => r.name === match.params.repo)
+  );
 
   useEffect(() => {
     if (isLoading)
       axios
         .get(apiGitHub.repoByUser(match.params.user, match.params.repo))
-        .then(res => {
+        .then((res) => {
           setRepo(res.data);
           setIsLoading(false);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
           setIsLoading(false);
-        })
-  }, [isLoading, match.params.repo, match.params.user])
+        });
+  }, [isLoading, match.params.repo, match.params.user]);
 
   if (repo === undefined) {
     if (isLoading)
@@ -45,12 +47,11 @@ const ShowRepo: React.FC<RouteComponentProps<Params>> = ({ match }) => {
       <div className="">
         <h1>Error not found!</h1>
       </div>
-    )
+    );
   }
 
   return (
     <div className="">
-
       <h2>
         <span className="pr-2">
           <StarButton repo={repo} />
@@ -58,7 +59,7 @@ const ShowRepo: React.FC<RouteComponentProps<Params>> = ({ match }) => {
         <span>{repo.name}</span>
       </h2>
 
-      <table className='table table-striped' aria-labelledby="tabelLabel">
+      <table className="table table-striped" aria-labelledby="tabelLabel">
         <thead>
           <tr>
             <th>Nome</th>
@@ -70,27 +71,17 @@ const ShowRepo: React.FC<RouteComponentProps<Params>> = ({ match }) => {
         </thead>
         <tbody>
           <tr>
-            <td>
-              {repo.name}
-            </td>
-            <td>
-              {repo.description}
-            </td>
-            <td>
-              {repo.language}
-            </td>
-            <td>
-              {repo.updated_at}
-            </td>
-            <td>
-              {repo.owner.login}
-            </td>
+            <td>{repo.name}</td>
+            <td>{repo.description}</td>
+            <td>{repo.language}</td>
+            <td>{repo.updated_at}</td>
+            <td>{repo.owner.login}</td>
           </tr>
         </tbody>
       </table>
-      <Contributors contributorsUrl={`https://api.github.com/repos/${match.params.user}/${match.params.repo}/contributors`} />
+      <Contributors user={match.params.user} repo={match.params.repo} />
     </div>
   );
-}
+};
 
 export default ShowRepo;

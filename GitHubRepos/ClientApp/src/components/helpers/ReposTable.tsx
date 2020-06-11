@@ -1,8 +1,8 @@
-import React from 'react';
-import { Repository } from '../../contracts/responses';
-import { NavLink, Spinner } from 'reactstrap';
-import { Link } from 'react-router-dom';
-import { appRoutes } from '../../contracts/routes';
+import React from "react";
+import { Repository } from "../../contracts/responses";
+import { NavLink, Spinner } from "reactstrap";
+import { Link } from "react-router-dom";
+import { appRoutes } from "../../contracts/routes";
 
 interface Props {
   repos: Repository[];
@@ -11,11 +11,12 @@ interface Props {
 
 const ReposTable: React.FC<Props> = ({ repos, isLoading }) => {
   // if (isLoading) return (
-  if (isLoading) return (
-    <div className="py-5 d-flex justify-content-around">
-      <Spinner color="info" />
-    </div>
-  );
+  if (isLoading)
+    return (
+      <div className="py-5 d-flex justify-content-around">
+        <Spinner color="info" />
+      </div>
+    );
 
   if (repos.length === 0) return null;
 
@@ -27,13 +28,13 @@ const ReposTable: React.FC<Props> = ({ repos, isLoading }) => {
         </tr>
       </thead>
       <tbody>
-        {repos.map(repo => (
+        {repos.map((repo) => (
           <tr key={repo.id}>
             <td>
               <NavLink
                 tag={Link}
                 className="text-dark"
-                to={appRoutes.myRepos.show.get(repo.owner.login, repo.name)}
+                to={appRoutes.myRepos.show.set(repo.owner.login, repo.name)}
               >
                 {repo.name}
               </NavLink>
@@ -43,6 +44,6 @@ const ReposTable: React.FC<Props> = ({ repos, isLoading }) => {
       </tbody>
     </table>
   );
-}
+};
 
 export default ReposTable;

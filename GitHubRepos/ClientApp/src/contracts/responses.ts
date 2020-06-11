@@ -20,3 +20,8 @@ export interface FavRepo {
   name: string;
   user: string;
 }
+
+export interface GitHubResponse {
+  total_count: number;
+  items: Repository[];
+}

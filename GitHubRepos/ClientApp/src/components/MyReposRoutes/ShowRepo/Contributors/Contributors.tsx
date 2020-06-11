@@ -1,42 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import { Contributor } from '../../../../contracts/responses';
-import ContributorView from './ContributorView';
-import axios from 'axios';
-import { Spinner } from 'reactstrap';
+import React, { useState, useEffect } from "react";
+import { Contributor } from "../../../../contracts/responses";
+import ContributorView from "./ContributorView";
+import axios from "axios";
+import { Spinner } from "reactstrap";
+import { apiGitHub } from "../../../../contracts/routes";
 
 interface Props {
-  contributorsUrl: string
+  user: string;
+  repo: string;
 }
 
-const Contributors: React.FC<Props> = ({ contributorsUrl }) => {
-  const [contributors, setContributors] = useState<Contributor[]>([]);
+const Contributors: React.FC<Props> = ({ user, repo }) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [collaborators, setCollaborators] = useState<Contributor[]>([]);
 
   useEffect(() => {
     axios
-      .get(contributorsUrl)
-      .then(res => {
-        setContributors(res.data);
-        setIsLoading(false)
+      .get<Contributor[]>(apiGitHub.repoContributors(user, repo))
+      .then((res) => {
+        setCollaborators(res.data);
+        setIsLoading(false);
       })
-      .catch(err => console.log(err))
-  }, [contributorsUrl])
+      .catch((err) => console.log(err));
+  }, [user, repo]);
 
   if (isLoading)
     return (
       <div className="py-5 d-flex justify-content-around">
         <Spinner type="grow" color="info" />
       </div>
-    )
+    );
 
   return (
     <div className="py-2 container">
       <div className="row justify-content-center">
-        {contributors.map(contributor => (
+        {collaborators.map((contributor) => (
           <ContributorView key={contributor.id} contributor={contributor} />
         ))}
       </div>
-    </div>);
-}
-
+      {/* TODO: Add Pagination */}
+    </div>
+  );
+};
 export default Contributors;
