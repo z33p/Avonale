@@ -6,6 +6,8 @@ import { apiGitHub, appRoutes } from "../../contracts/routes";
 import { GitHubResponse } from "../../contracts/responses";
 import Paginator from "../helpers/Paginator";
 import { useHistory, RouteComponentProps } from "react-router-dom";
+import { useAlert } from "react-alert";
+import ErrorPage from "../helpers/ErrorPage";
 
 interface Params {
   page: string;
@@ -13,7 +15,11 @@ interface Params {
 }
 
 const MyRepos: React.FC<RouteComponentProps<Params>> = ({ match }) => {
+  const alert = useAlert();
+
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
+
   const [currentPage, setCurrentPage] = useState(
     parseInt(match.params.page ?? 1)
   );
@@ -34,9 +40,13 @@ const MyRepos: React.FC<RouteComponentProps<Params>> = ({ match }) => {
       })
       .catch((err) => {
         console.log(err);
+        alert.error("Erro na Requisição");
         setIsLoading(false);
+        setError(true);
       });
-  }, [currentPage, history, per_page, setResponseData]);
+  }, [alert, currentPage, history, per_page, setResponseData]);
+
+  if (error) return <ErrorPage />;
 
   return (
     <div>

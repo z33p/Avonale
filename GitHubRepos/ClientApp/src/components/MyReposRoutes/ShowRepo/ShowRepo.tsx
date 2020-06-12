@@ -6,6 +6,8 @@ import Contributors from "./Contributors/Contributors";
 import { Spinner, Table } from "reactstrap";
 import StarButton from "./StarButton";
 import { apiGitHub } from "../../../contracts/routes";
+import { useAlert } from "react-alert";
+import ErrorPage from "../../helpers/ErrorPage";
 
 interface Params {
   user: string;
@@ -13,9 +15,12 @@ interface Params {
 }
 
 const ShowRepo: React.FC<RouteComponentProps<Params>> = ({ match }) => {
+  const alert = useAlert();
+
   const { responseData } = useContext(MyReposContext);
 
   const [isLoading, setIsLoading] = useState(responseData.items.length === 0);
+  const [error, setError] = useState(false);
 
   const [repo, setRepo] = useState(
     responseData.items.find((r) => r.name === match.params.repo)
@@ -31,9 +36,11 @@ const ShowRepo: React.FC<RouteComponentProps<Params>> = ({ match }) => {
         })
         .catch((err) => {
           console.log(err);
+          alert.error("Erro na Requisição");
           setIsLoading(false);
+          setError(true);
         });
-  }, [isLoading, match.params.repo, match.params.user]);
+  }, [alert, isLoading, match.params.repo, match.params.user]);
 
   if (repo === undefined) {
     if (isLoading)
@@ -43,12 +50,10 @@ const ShowRepo: React.FC<RouteComponentProps<Params>> = ({ match }) => {
         </div>
       );
 
-    return (
-      <div className="">
-        <h1>Error not found!</h1>
-      </div>
-    );
+    return <ErrorPage />;
   }
+
+  if (error) return <ErrorPage />;
 
   return (
     <div className="">

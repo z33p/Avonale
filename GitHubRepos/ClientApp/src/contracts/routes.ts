@@ -3,12 +3,12 @@ export const appRoutes = {
   favRepos: "/fav-repos",
   searchRepos: {
     index: "/search-repos",
-    pagination: {
-      template: "/search-repos?q=:name&page=:page&per_page=:per_page",
-      set: (name: string, page: number, per_page: number) => {
-        return `/search-repos/q=${name}&page=${page}&per_page=${per_page}`;
-      },
-    },
+    // pagination: {
+    //   template: "/search-repos/q=:name&page=:page&per_page=:per_page",
+    //   set: (name: string, page: number, per_page: number) => {
+    //     return `/search-repos/q=${name}&page=${page}&per_page=${per_page}`;
+    //   },
+    // },
   },
   myRepos: {
     index: "/my-repos",

@@ -3,9 +3,10 @@ import { GitHubResponse } from "../contracts/responses";
 import axios from "axios";
 import ReposTable from "./helpers/ReposTable";
 import { Input } from "reactstrap";
-import { apiGitHub, appRoutes } from "../contracts/routes";
+import { apiGitHub } from "../contracts/routes";
 import Paginator from "./helpers/Paginator";
-import { RouteComponentProps, useHistory } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
+import ErrorPage from "./helpers/ErrorPage";
 
 interface Params {
   name: string;
@@ -19,19 +20,18 @@ const SearchRepos: React.FC<RouteComponentProps<Params>> = ({ match }) => {
     parseInt(match.params.page ?? 1)
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+
   const [responseData, setResponseData] = useState<GitHubResponse>({
     total_count: 0,
     items: [],
   });
 
-  const history = useHistory();
-
   const per_page = parseInt(match.params.per_page ?? 12);
   const searchRepos = useCallback(() => {
     setIsLoading(true);
-    history.replace(
-      appRoutes.searchRepos.pagination.set(repoName, currentPage, per_page)
-    );
+    setError(false);
+
     axios
       .get<GitHubResponse>(
         apiGitHub.searchByName(repoName, currentPage, per_page)
@@ -42,13 +42,12 @@ const SearchRepos: React.FC<RouteComponentProps<Params>> = ({ match }) => {
       })
       .catch((err) => {
         console.log(err);
+        setError(true);
         setIsLoading(false);
       });
-  }, [currentPage, history, per_page, repoName]);
+  }, [currentPage, per_page, repoName]);
 
   useEffect(() => {
-    console.log("constructed");
-
     if (repoName.length > 0) searchRepos();
   }, [currentPage, repoName.length, searchRepos]);
 
@@ -75,13 +74,19 @@ const SearchRepos: React.FC<RouteComponentProps<Params>> = ({ match }) => {
           }, 400);
         }}
       />
-      <Paginator
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        per_page={per_page}
-        total_count={responseData.total_count}
-      />
-      <ReposTable repos={responseData.items} isLoading={isLoading} />
+      {error ? (
+        <ErrorPage />
+      ) : (
+        <div>
+          <Paginator
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            per_page={per_page}
+            total_count={responseData.total_count}
+          />
+          <ReposTable repos={responseData.items} isLoading={isLoading} />
+        </div>
+      )}
     </div>
   );
 };

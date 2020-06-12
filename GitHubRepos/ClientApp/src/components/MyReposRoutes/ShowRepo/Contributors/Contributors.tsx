@@ -4,6 +4,8 @@ import ContributorView from "./ContributorView";
 import axios from "axios";
 import { Spinner } from "reactstrap";
 import { apiGitHub } from "../../../../contracts/routes";
+import { useAlert } from "react-alert";
+import ErrorPage from "../../../helpers/ErrorPage";
 
 interface Props {
   user: string;
@@ -11,7 +13,11 @@ interface Props {
 }
 
 const Contributors: React.FC<Props> = ({ user, repo }) => {
+  const alert = useAlert();
+
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
+
   const [collaborators, setCollaborators] = useState<Contributor[]>([]);
 
   useEffect(() => {
@@ -21,8 +27,13 @@ const Contributors: React.FC<Props> = ({ user, repo }) => {
         setCollaborators(res.data);
         setIsLoading(false);
       })
-      .catch((err) => console.log(err));
-  }, [user, repo]);
+      .catch((err) => {
+        console.log(err);
+        alert.error("Erro na Requisição");
+        setError(true);
+        setIsLoading(false);
+      });
+  }, [user, repo, alert]);
 
   if (isLoading)
     return (
@@ -30,6 +41,8 @@ const Contributors: React.FC<Props> = ({ user, repo }) => {
         <Spinner type="grow" color="info" />
       </div>
     );
+
+  if (error) return <ErrorPage />;
 
   return (
     <div className="py-2">
