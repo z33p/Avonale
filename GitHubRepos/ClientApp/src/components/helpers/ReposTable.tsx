@@ -18,7 +18,14 @@ const ReposTable: React.FC<Props> = ({ repos, isLoading }) => {
       </div>
     );
 
-  if (repos.length === 0) return null;
+  if (repos.length === 0)
+    return (
+      <div className="pt-5 container">
+        <div className="pt-5 row justify-content-center align-items-center">
+          <h1 className="display-4 text-secondary">Vazio</h1>
+        </div>
+      </div>
+    );
 
   return (
     <Table responsive hover className="py-2">
