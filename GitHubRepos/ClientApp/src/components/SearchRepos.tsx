@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { GitHubResponse } from "../contracts/responses";
 import axios from "axios";
 import ReposTable from "./helpers/ReposTable";
-import { Input } from "reactstrap";
 import { apiGitHub } from "../contracts/routes";
 import Paginator from "./helpers/Paginator";
 import { RouteComponentProps } from "react-router-dom";
@@ -15,7 +14,7 @@ interface Params {
 }
 
 const SearchRepos: React.FC<RouteComponentProps<Params>> = ({ match }) => {
-  const [repoName, setRepoName] = useState(match.params.name ?? "");
+  const inputEl = useRef<HTMLInputElement>(null);
   const [currentPage, setCurrentPage] = useState(
     parseInt(match.params.page ?? 1)
   );
@@ -29,12 +28,15 @@ const SearchRepos: React.FC<RouteComponentProps<Params>> = ({ match }) => {
 
   const per_page = parseInt(match.params.per_page ?? 12);
   const searchRepos = useCallback(() => {
+    if (inputEl.current === null) return;
+    if (inputEl.current.value.length === 0) return;
+
     setIsLoading(true);
     setError(false);
 
     axios
       .get<GitHubResponse>(
-        apiGitHub.searchByName(repoName, currentPage, per_page)
+        apiGitHub.searchByName(inputEl.current.value, currentPage, per_page)
       )
       .then((res) => {
         setResponseData(res.data);
@@ -45,22 +47,22 @@ const SearchRepos: React.FC<RouteComponentProps<Params>> = ({ match }) => {
         setError(true);
         setIsLoading(false);
       });
-  }, [currentPage, per_page, repoName]);
+  }, [currentPage, per_page]);
 
   useEffect(() => {
-    if (repoName.length > 0) searchRepos();
-  }, [currentPage, repoName.length, searchRepos]);
+    searchRepos();
+  }, [currentPage, searchRepos]);
 
   let typingTimer: any = null;
   return (
     <div className="p-4">
       <h4 className="pb-2">Pesquisar repositórios no GitHub</h4>
-      <Input
+      <input
         type="search"
         name="search"
         id="search"
-        value={repoName}
-        onChange={(e) => setRepoName(e.target.value)}
+        ref={inputEl}
+        className="form-control"
         onKeyDown={() => {
           clearTimeout(typingTimer);
         }}
@@ -68,10 +70,8 @@ const SearchRepos: React.FC<RouteComponentProps<Params>> = ({ match }) => {
           clearTimeout(typingTimer);
 
           typingTimer = setTimeout(() => {
-            if (repoName.length === 0) return;
-
             searchRepos();
-          }, 400);
+          }, 800);
         }}
       />
       {error ? (
