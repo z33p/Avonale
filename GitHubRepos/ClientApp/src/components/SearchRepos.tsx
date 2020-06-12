@@ -2,9 +2,9 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { GitHubResponse } from "../contracts/responses";
 import axios from "axios";
 import ReposTable from "./helpers/ReposTable";
-import { apiGitHub } from "../contracts/routes";
+import { apiGitHub, appRoutes } from "../contracts/routes";
 import Paginator from "./helpers/Paginator";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, useHistory } from "react-router-dom";
 import ErrorPage from "./helpers/ErrorPage";
 
 interface Params {
@@ -15,6 +15,8 @@ interface Params {
 
 const SearchRepos: React.FC<RouteComponentProps<Params>> = ({ match }) => {
   const inputEl = useRef<HTMLInputElement>(null);
+  const history = useHistory();
+
   const [currentPage, setCurrentPage] = useState(
     parseInt(match.params.page ?? 1)
   );
@@ -61,6 +63,7 @@ const SearchRepos: React.FC<RouteComponentProps<Params>> = ({ match }) => {
         type="search"
         name="search"
         id="search"
+        defaultValue={match.params.name ?? ""}
         ref={inputEl}
         className="form-control"
         onKeyDown={() => {
@@ -70,6 +73,17 @@ const SearchRepos: React.FC<RouteComponentProps<Params>> = ({ match }) => {
           clearTimeout(typingTimer);
 
           typingTimer = setTimeout(() => {
+            if (inputEl.current === null) return;
+            if (inputEl.current.value.length === 0) return;
+
+            history.replace(
+              appRoutes.searchRepos.pagination.set(
+                inputEl.current.value,
+                currentPage,
+                per_page
+              )
+            );
+
             searchRepos();
           }, 800);
         }}
@@ -80,7 +94,19 @@ const SearchRepos: React.FC<RouteComponentProps<Params>> = ({ match }) => {
         <div>
           <Paginator
             currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
+            setCurrentPage={(page: number) => {
+              if (inputEl.current === null) return;
+
+              history.replace(
+                appRoutes.searchRepos.pagination.set(
+                  inputEl.current.value,
+                  page,
+                  per_page
+                )
+              );
+
+              setCurrentPage(page);
+            }}
             per_page={per_page}
             total_count={responseData.total_count}
           />

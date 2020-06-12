@@ -27,7 +27,16 @@ const App: React.FC = () => {
       <Layout>
         <Route exact path={appRoutes.home} component={Home} />
         <Route path={appRoutes.favRepos} component={FavRepos} />
-        <Route path={appRoutes.searchRepos.index} component={SearchRepos} />
+        <Route
+          exact
+          path={appRoutes.searchRepos.index}
+          component={SearchRepos}
+        />
+        <Route
+          path={appRoutes.searchRepos.pagination.template}
+          component={SearchRepos}
+        />
+
         <Route path={appRoutes.myRepos.index} component={MyReposRoutes} />
       </Layout>
     </AlertProvider>
