@@ -18,6 +18,6 @@
 
 ## 2. ConsoleScripts
 
-- [ ] Recursivo que imprima a média dos elementos de uma lista de inteiros e o número de elementos maiores do que a média.
+- [x] Recursivo que imprima a média dos elementos de uma lista de inteiros e o número de elementos maiores do que a média.
 
-- [ ] Recursivo que retorne uma lista de forma invertida.
+- [x] Recursivo que retorne uma lista de forma invertida.
