@@ -24,7 +24,8 @@ const Contributors: React.FC<Props> = ({ user, repo }) => {
     axios
       .get<Contributor[]>(apiGitHub.repoContributors(user, repo))
       .then((res) => {
-        setCollaborators(res.data);
+        if (res.status === 204) setCollaborators([]);
+        else setCollaborators(res.data);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -47,9 +48,17 @@ const Contributors: React.FC<Props> = ({ user, repo }) => {
   return (
     <div className="py-2">
       <div className="row align-items-center">
-        {collaborators.map((contributor) => (
-          <ContributorView key={contributor.id} contributor={contributor} />
-        ))}
+        {collaborators.length === 0 ? (
+          <div className="pt-5 container">
+            <div className="pt-5 row justify-content-center align-items-center">
+              <h1 className="display-4 text-secondary">Vazio</h1>
+            </div>
+          </div>
+        ) : (
+          collaborators.map((contributor) => (
+            <ContributorView key={contributor.id} contributor={contributor} />
+          ))
+        )}
       </div>
       {/* TODO: Add Pagination */}
     </div>
